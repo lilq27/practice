@@ -119,7 +119,7 @@ public class SampleController {
 	@PostMapping("/exUploadPost")
 	public void exUploadPost(ArrayList<MultipartFile> files) {
 		
-		files.forEach(file->{
+		files.forEach(file->{ //for문 람다식 
 			System.out.println("-------------");
 			System.out.println("name: "+file.getOriginalFilename());
 			System.out.println("size: "+file.getSize());
