@@ -62,7 +62,7 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
-			<exclusions>
+	<!-- 	<exclusions>
 				<exclusion>
 					<groupId>javax.mail</groupId>
 					<artifactId>mail</artifactId>
@@ -80,7 +80,7 @@
 					<artifactId>jmxri</artifactId>
 				</exclusion>
 			</exclusions>
-			<scope>runtime</scope>
+			<scope>runtime</scope>  log4j의 1.2.15 부분이기 때문에 삭제 필요 p54-->	
 		</dependency>
 
 		<!-- @Inject -->
