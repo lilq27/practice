@@ -32,7 +32,7 @@
 
                     <tr>
                       <td><c:out value="${board.bno }"/></td>
-                      <td><a href='/board/get?bno=<c:out value="${board.bno }"/>'>
+                      <td><a class='move' href='/board/get?bno=<c:out value="${board.bno }"/>'>
                      	${board.title }</a></td>
                       <td>${board.writer }</td>
                       <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/></td>
@@ -41,12 +41,34 @@
 
                 </c:forEach>  
                 </table>
-              </div>
-            </div>
+                
+                <div class='pull-right'>
+                	<ul class="pagination">
+                		<c:if test="${pageMaker.prev }">
+                		<li class="paginate_button previous"><a href="${pageMaker.startPage-1 }">Previous</a></li>
+                		</c:if>
+                		
+                		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+                		<li class='paginate_button ${pageMaker.cri.pageNum==num ? "active":"" }'>
+                		<a href="${num }">${num }</a></li>
+                		</c:forEach>
+                		
+                		<c:if test="${pageMaker.next }">
+                		<li class="paginate_button next"><a href="${pageMaker.endPage+1 }">Next</a></li>
+                		</c:if>
+                	</ul>
+             	</div>
+             	<form id="actionForm" action="/board/list" method="get">
+             		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> <!-- pageNum은 현재 페이지 -->
+             		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+        		</form>
+              <!-- end Pagination -->
+
           </div>
 
         </div>
         <!-- /.container-fluid -->
+    
 
       </div>
 <!-- End of Main Content -->
@@ -98,5 +120,25 @@
 		$("#regBtn").on("click",function(){ //등록 페이지로 이동
 			self.location="/board/register"
 		})
+		//----------------------------------------------------------------------Modal
+		
+		var actionForm=$("#actionForm");
+		$(".paginate_button a").on("click",function(e){
+			e.preventDefault();
+			console.log("click");
+			actionForm.find("input[name='pageNum']").val($(this).attr("href")); 
+			//.attr()은 요소(element)의 속성(attribute)의 값을 가져오거나 속성을 추가 
+			//input의 pageNum에 클릭한 button의 a href 값을 넣으라는 뜻 
+			actionForm.submit();
+			//input value값에 클릭된 href값이 들어가고 그걸 submit하면 mapper에서 쿼리문이 작동 
+			//페이징 숫자와 리스트를 분리해서 생각할 것 
+		});
+		$(".move").on("click",function(e){
+			e.preventDefault();
+			actionForm.append("<input type='hidden' name='bno' value='"+$(this).attr("href")+"'>");
+			actionForm.attr("action","/board/get");
+			actionForm.submit();
+		});
+		
 	});
 </script>

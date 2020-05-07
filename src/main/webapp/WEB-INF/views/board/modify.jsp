@@ -68,8 +68,10 @@
 				formObj.attr("action", "/board/remove"); 
 			//.attr( attributeName, value )선택한 요소에 속성을 추가 , .attr( attributeName )선택한 요소의 속성의 값을 가져옴
 			}else if(operation==='list'){
-				self.location="/board/list";
-				return;
+				//self.location="/board/list";
+				formObj.attr("action", "/board/list").attr("method", "get");
+				formObj.empty();
+				//return;
 			}
 			formObj.submit();
 			

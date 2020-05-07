@@ -5,13 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
 @Service
 @AllArgsConstructor
+@Log4j
 public class BoardServiceImpl implements BoardService {
 
 	@Setter(onMethod_ =@Autowired )
@@ -45,10 +48,17 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.delete(bno)==1;
 	}
 
-	@Override
+	/*@Override
 	public List<BoardVO> getList() {
 		// TODO Auto-generated method stub
 		return mapper.getList();
+	}*/
+
+	@Override
+	public List<BoardVO> getList(Criteria cri) {
+		// TODO Auto-generated method stub
+		log.info("get List with criteria: "+cri);
+		return mapper.getListWithPaging(cri);
 	}
 
 }
