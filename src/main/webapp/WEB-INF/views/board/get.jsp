@@ -46,6 +46,9 @@
 				
 				<form id='operForm' action="/board/modify" method="get">
 					<input type="hidden" id="bno" name="bno" value="<c:out value='${board.bno }'/>">
+					<input type="hidden" name="pageNum" value="<c:out value='${cri.pageNum }'/>"> <!-- 조회에서 list로 갈때  -->
+					<input type="hidden" name="amount" value="<c:out value='${cri.amount }'/>"> <!--pageNum, amount url매핑  -->
+					
 				</form>
 		</div>
 	</div>

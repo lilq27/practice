@@ -32,7 +32,7 @@
 
                     <tr>
                       <td><c:out value="${board.bno }"/></td>
-                      <td><a class='move' href='/board/get?bno=<c:out value="${board.bno }"/>'>
+                      <td><a class='move' href='<c:out value="${board.bno }"/>'>
                      	${board.title }</a></td>
                       <td>${board.writer }</td>
                       <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/></td>
@@ -133,12 +133,14 @@
 			//input value값에 클릭된 href값이 들어가고 그걸 submit하면 mapper에서 쿼리문이 작동 
 			//페이징 숫자와 리스트를 분리해서 생각할 것 
 		});
-		$(".move").on("click",function(e){
+			$(".move").on("click",function(e){
 			e.preventDefault();
-			actionForm.append("<input type='hidden' name='bno' value='"+$(this).attr("href")+"'>");
-			actionForm.attr("action","/board/get");
+			actionForm.append("<input type='hidden' name='bno' value='"+$(this).attr("href")+"'>" );
+			// 기존 url에 append : 기존url+ bno= 생성
+			actionForm.attr("action","/board/get");//pageNum과 amount 정보를 /board/get으로 넘겨줌 
+			// url: /board/get? 생성
 			actionForm.submit();
-		});
+		}); 
 		
 	});
 </script>
