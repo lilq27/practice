@@ -19,6 +19,8 @@
 			<form role="form" action="/board/modify" method="post">
 			<input type="hidden" name="pageNum" value="${cri.pageNum }"> <!-- pageNum, amount url매핑 -->
 			<input type="hidden" name="amount" value="${cri.amount }">
+			<input type="hidden" name="keyword" value="<c:out value='${cri.keyword }'/>"> <!--keyword, type url매핑  -->
+			<input type="hidden" name="type" value="<c:out value='${cri.type }'/>"> 
 			
 				<div class="form-group">
 					<label>Title</label>
@@ -75,10 +77,14 @@
 				formObj.attr("action", "/board/list").attr("method", "get");
 				var pageNumTag=$("input[name='pageNum']").clone(); //.clone(); 데이터 및 기능들도 함께 복사 (안써도 작동함)
 				var amountTag=$("input[name='amount']").clone();
+				var keywordTag=$("input[name='keyword']").clone();
+				var typeTag=$("input[name='type']").clone();
 				formObj.empty();
 				//return;
 				formObj.append(pageNumTag);
 				formObj.append(amountTag);
+				formObj.append(keywordTag);
+				formObj.append(typeTag);
 			}
 			formObj.submit();
 			
