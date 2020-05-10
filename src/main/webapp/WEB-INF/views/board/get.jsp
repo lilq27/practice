@@ -56,7 +56,7 @@
 	</div>
 </div>
 <%@include file="../includes/footer.jsp" %>
-
+<script type="text/javascript" src="/resources/js/reply.js"></script>
 <script>
 	$(document).ready(function(){
 		var operForm =$("#operForm");
@@ -69,6 +69,20 @@
 			operForm.attr("action","/board/list")
 			operForm.submit();
 		});
+		//--------------------------
+		console.log("===================");
+		console.log("JS TEST");
+		var bnoValue='<c:out value="${board.bno}"/>';
+		replyService.add(
+			{replay:"JS Test", replyer:"tester", bno:bnoValue},
+			function(result){
+				alert("RESULT: "+result)
+			}
+		)
+		$(document).ready(function(){
+			console.log(replyService);
+		});
+		
 	});
 
 </script>

@@ -43,7 +43,7 @@
                 </table>
                 <!-- 검색 -->           
                 <form id="searchForm" action="/board/list" method="get">        
-                	<select name="type">
+                	<select name="type" >
                 		<option value=""
                 			<c:out value="${pageMaker.cri.type=null? 'selected':'' }"/>>--</option>
                 			<option value="T"
@@ -119,9 +119,7 @@
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal -->
-
 <%@include file="../includes/footer.jsp" %>
-
 <script type="text/javascript">
 	$(document).ready(function(){
 		var result='<c:out value="${result}"/>';
@@ -170,7 +168,7 @@
 		var searchForm=$("#searchForm");
 		$("#searchForm button").on("click",function(e){
 			
-			if(!serarchForm.find("option:selected").val()){
+			if(!searchForm.find("option:selected").val()){
 				alert("검색종류를 선택하세요");
 				return false;
 			}
