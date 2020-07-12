@@ -43,7 +43,7 @@ public class AjaxSampleController {
 	}
 	@GetMapping(value="/getList")
 	public List<AjaxSampleVO> getList(){
-		return IntStream.range(1, 10).mapToObj(i-> new AjaxSampleVO(i,i+"First", i+"Last"))
+		return IntStream.range(1, 10).mapToObj(i -> new AjaxSampleVO(i, i+"First", i+"Last"))
 				.collect(Collectors.toList());	//IntStream은 for문과 유사 
 	}
 	@GetMapping(value="/getMap")
@@ -56,18 +56,20 @@ public class AjaxSampleController {
 	public ResponseEntity<AjaxSampleVO> check(Double height, Double weight){
 		AjaxSampleVO vo=new AjaxSampleVO(0,""+height,""+weight);
 		ResponseEntity<AjaxSampleVO> result=null;
-		if(height<150) {
+		if(height < 150) {
 			result=ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(vo);
-		}else {
+		} else {
 			result=ResponseEntity.status(HttpStatus.OK).body(vo);
 		}
+		
 		return result;
 	}
 	@GetMapping("/product/{cat}/{pid}")
-	public String[] getPath(@PathVariable("cat") String cat, //url값을 파라미터로 사용 
-							@PathVariable("pid") Integer pid) { 
+	public String[] getPath(
+			@PathVariable("cat") String cat, //url값을 파라미터로 사용 
+			@PathVariable("pid") Integer pid) { 
 		//ex)http://localhost:9090/ajaxSample/product/bags/1234 => bags와 1234를 파라미터로 사용
-		return new String[] { "category: " +cat, "productid: "+pid};
+		return new String[] { "category: " +cat, "productid: "+pid };
 	}
 	@PostMapping("/ticket")
 	public Ticket convert(@RequestBody Ticket ticket) {

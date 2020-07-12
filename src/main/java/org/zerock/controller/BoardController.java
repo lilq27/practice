@@ -76,4 +76,10 @@ public class BoardController {
 		 
 		return "redirect:/board/list";
 	}
+	
+	@GetMapping("/prJavaScript")
+	public String practice() {
+		
+		return "practiceJavaScript";
+	}
 }

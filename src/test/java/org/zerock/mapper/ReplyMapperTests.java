@@ -7,12 +7,12 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.zerock.domain.ReplyVO;
 
 import lombok.extern.log4j.Log4j;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class ReplyMapperTests {
@@ -24,11 +24,12 @@ public class ReplyMapperTests {
 	
 	@Test
 	public void testCreate() {
-		IntStream.range(1, 10).forEach(i->{
+		IntStream.rangeClosed(1, 10).forEach(i->{
 			ReplyVO vo =new ReplyVO();
 			vo.setBno(bnoArr[i%5]);
 			vo.setReply("댓글 테스트" +i);
-			vo.setReplayer("replyer"+i);
+			vo.setReplyer("replyer"+i);
+			mapper.insert(vo);
 		});
 	}
 	

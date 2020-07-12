@@ -55,6 +55,36 @@
 		</div>
 	</div>
 </div>
+
+<div class='row'>
+	<div class="col-lg-12">
+		<!-- /.panel -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<i class="fa fa-comments fa-fw"></i> Reply
+			</div>
+		<!-- /.panel-heading -->
+		<div class="panel-body">
+			<ul class="chat">
+				<!-- start reply -->
+				<li class="left clearfix" data-rno='12'>
+				<div>
+					<div class="header">
+						<strong class="primary-font">User00</strong>
+						<small class="pull-right text-muted">2020-05-17 21:42</small>
+					</div>
+					<p>Good job!</p>
+				</div>
+				</li>
+				<!-- end reply -->
+			</ul>
+			<!-- ./end ul -->
+		</div>
+		<!-- /.panel .chat-panel -->	
+		</div>
+	</div>
+
+</div>
 <%@include file="../includes/footer.jsp" %>
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <script>
@@ -72,17 +102,58 @@
 		//--------------------------
 		console.log("===================");
 		console.log("JS TEST");
+		
 		var bnoValue='<c:out value="${board.bno}"/>';
-		replyService.add(
-			{replay:"JS Test", replyer:"tester", bno:bnoValue},
-			function(result){
-				alert("RESULT: "+result)
+	
+		replyService.getList({bno:bnoValue, page:1}, function(list){
+			for(var i=0, len=list.lenght||0; i<len; i++){
+				
 			}
-		)
-		$(document).ready(function(){
-			console.log(replyService);
 		});
 		
+		replyService.remove(23,function(count){//안됨
+			console.log(count);
+			if(count==="success"){
+				alert("REMOVED");
+			}
+		 }, function(err){
+			alert('ERROR...');
+		});
+		
+		replyService.update({//안됨
+			rno:22,
+			bno:bnoValue,
+			reply:"Modified Reply...."
+			},function(result){
+				alert("수정 완료");
+			});
+		
+		replyService.get(10, function(data){
+			console.log(data);
+			});
+		
+		var bnoValue = '<c:out value="${board.bno}"/>';
+		var replyUL = $(".chat");
+		
+		showList(1);
+		
+		function showList(page){
+			replyService.getList({bno:bnoValue, page : page || 1}, function(list){
+				var str = "";
+				if(list == null || list.length == 0){
+					replyUL.html("");
+					
+					return;
+				}
+				for (var i=0, len = list.length || 0; i < len; i++){
+					str += "<li class = 'left clearfix' data-rno='"+list[i].rno+"'>";
+					srt += "<div><div class='header'><strong class='primary-font'>"+list[i].replyer+"</strong>";
+					str += "<small class='pull-right text-muted'>"+list[i].replyDate+"</small></div>";
+					str += "<p>"+list[i].reply+"</p></div></li>";
+				}
+				replyUL.html(str);
+			});//end function
+		}//end shoList
+		
 	});
-
 </script>

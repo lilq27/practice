@@ -27,6 +27,7 @@ import lombok.extern.log4j.Log4j;
 	"file:src/main/webapp/WEB-INF/spring/root-context.xml",
 	"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
 })
+
 @Log4j
 public class AjaxSampleControllerTests {
 	
@@ -40,6 +41,7 @@ public class AjaxSampleControllerTests {
 	}
 	@Test
 	public void testConvert() throws Exception{
+		
 		Ticket ticket=new Ticket();
 		ticket.setTno(123);
 		ticket.setOwner("Admin");
@@ -53,7 +55,5 @@ public class AjaxSampleControllerTests {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonStr))
 				.andExpect(status().is(200));
-		
 	}
-
 }

@@ -3,7 +3,7 @@
 console.log("Reply Module.....")
 var replyService=(function(){
 	
-	function add(reply, callback,error){
+	function add(reply, callback, error){
 		console.log("add reply..........");
 	
 	
@@ -38,6 +38,60 @@ var replyService=(function(){
 			}
 		});
 	}
-	return {add:add,
-			getList:getList};
+	function remove(rno,callback,error){//안됨
+		$.ajax({
+			type:'delete',
+			url:'/replies/'+rno,
+			success: function(deleteResult, status, xhr){
+				if(callback){
+					callback(deleteResult);
+				}
+			},
+			error: function(xhr, status, er){
+				if(error){
+					error(er);
+				}
+			}
+		});
+		
+	}
+	function update(reply,callback,error){
+		console.log("RNO: "+reply.rno);
+		$.ajax({
+			type: 'put',
+			url: '/replies/'+reply.rno,
+			data: JSON.stringify(reply),
+			contentType:"application/json; charset=utf-8",
+			success:function(result,status,xhr){
+			 if(callback){
+				callback(result);
+			}
+		},
+		error:function(xhr, status,er){
+			if(error){
+				error(er);
+			}
+		}
+		});
+	}
+	function get(rno, callback, error){
+		$.get("/replies/" + rno + ".json", function(result){
+			if(callback){
+				callback(result)
+			}
+		}).fail(function(xhr, status, err){
+			if(error){
+				error();
+			}
+		});
+	}
+	
+	
+	return {
+			add : add,
+			getList : getList,
+			remove : remove,
+			update : update,
+			get : get
+			};
 })();

@@ -41,7 +41,7 @@ public class ReplyController {
 				? new ResponseEntity<>("success",HttpStatus.OK)
 						:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	@GetMapping(value="/pages{bno}/{page}",
+	@GetMapping(value="/pages/{bno}/{page}",
 			produces= {
 					MediaType.APPLICATION_XML_VALUE, //JSON 방식, produces속성은 생략가능
 					MediaType.APPLICATION_JSON_UTF8_VALUE}) //XML 방식
