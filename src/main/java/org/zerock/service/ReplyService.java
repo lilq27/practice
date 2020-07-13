@@ -14,11 +14,8 @@ public interface ReplyService {
 	
 	public int remove (Long rno);
 	
-	public int modify(ReplyVO reply);
+	public int modify(ReplyVO replyVo);
 	
-	public List<ReplyVO> getListWithPaging(
-			@Param("cri") Criteria cri, //MyBatis에 두 개 이상의 데이터를 파라미터로 전달 
-			@Param("bno") Long bno
-			);
+	public List<ReplyVO> getList(Criteria cri, Long bno);
 
 }

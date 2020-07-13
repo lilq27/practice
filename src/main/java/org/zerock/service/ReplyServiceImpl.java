@@ -20,32 +20,32 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	@Override
 	public int register(ReplyVO vo) {
-		// TODO Auto-generated method stub
+		log.info("register..........." + vo);
 		return mapper.insert(vo);
 	}
 
 	@Override
 	public ReplyVO get(Long rno) {
-		// TODO Auto-generated method stub
+		log.info("get..........." + rno);
 		return mapper.read(rno);
 	}
 
 	@Override
 	public int remove(Long rno) {
-		// TODO Auto-generated method stub
+		log.info("remove..........." + rno);
 		return mapper.delete(rno);
 	}
 
 	@Override
-	public int modify(ReplyVO reply) {
-		// TODO Auto-generated method stub
-		return mapper.update(reply);
+	public int modify(ReplyVO replyVo) {
+		log.info("modify..........." + replyVo);
+		return mapper.update(replyVo);
 	}
 
 	@Override
-	public List<ReplyVO> getListWithPaging(Criteria cri, Long bno) {
-		log.info("get Reply List of a Board "+bno);
-		return mapper.getListWithPaging(cri, bno); //MyBatis에 두 개 이상의 데이터를 파라미터로 전달 
+	public List<ReplyVO> getList(Criteria cri, Long bno) {
+		log.info("get Replay List of a Board..........." + bno);
+		return mapper.getListWithPaging(cri, bno);
 	}
 
 }

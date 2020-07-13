@@ -89,71 +89,32 @@
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <script>
 	$(document).ready(function(){
-		var operForm =$("#operForm");
-		$("button[data-oper='modify']").on("click",function(e){
-			operForm.attr("action","/board/modify").submit();
-		});
+// 		var operForm =$("#operForm");
+// 		$("button[data-oper='modify']").on("click",function(e){
+// 			operForm.attr("action","/board/modify").submit();
+// 		});
 		
-		$("button[data-oper='list']").on("click",function(e){
-			operForm.find("#bno").remove();
-			operForm.attr("action","/board/list")
-			operForm.submit();
-		});
+// 		$("button[data-oper='list']").on("click",function(e){
+// 			operForm.find("#bno").remove();
+// 			operForm.attr("action","/board/list")
+// 			operForm.submit();
+// 		});
 		//--------------------------
 		console.log("===================");
 		console.log("JS TEST");
+		//console.log(replyService);
 		
-		var bnoValue='<c:out value="${board.bno}"/>';
-	
-		replyService.getList({bno:bnoValue, page:1}, function(list){
-			for(var i=0, len=list.lenght||0; i<len; i++){
+		var bnoValue = '<c:out value = "${board.bno}"/>';
+		
+		replyService.add({
+			reply : "JS Test", replyer : "tester", bno : bnoValue},
+			
+			function(result) {
+				alert("RESULT: " + result);
 				
 			}
-		});
-		
-		replyService.remove(23,function(count){//안됨
-			console.log(count);
-			if(count==="success"){
-				alert("REMOVED");
-			}
-		 }, function(err){
-			alert('ERROR...');
-		});
-		
-		replyService.update({//안됨
-			rno:22,
-			bno:bnoValue,
-			reply:"Modified Reply...."
-			},function(result){
-				alert("수정 완료");
-			});
-		
-		replyService.get(10, function(data){
-			console.log(data);
-			});
-		
-		var bnoValue = '<c:out value="${board.bno}"/>';
-		var replyUL = $(".chat");
-		
-		showList(1);
-		
-		function showList(page){
-			replyService.getList({bno:bnoValue, page : page || 1}, function(list){
-				var str = "";
-				if(list == null || list.length == 0){
-					replyUL.html("");
-					
-					return;
-				}
-				for (var i=0, len = list.length || 0; i < len; i++){
-					str += "<li class = 'left clearfix' data-rno='"+list[i].rno+"'>";
-					srt += "<div><div class='header'><strong class='primary-font'>"+list[i].replyer+"</strong>";
-					str += "<small class='pull-right text-muted'>"+list[i].replyDate+"</small></div>";
-					str += "<p>"+list[i].reply+"</p></div></li>";
-				}
-				replyUL.html(str);
-			});//end function
-		}//end shoList
+		);
+	
 		
 	});
 </script>
