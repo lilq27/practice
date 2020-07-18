@@ -23,9 +23,9 @@
   </update>
   
   <select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
-  	SELECT  rno,bno, reply, replyer, replyDate, updatedate
+  	SELECT  rno, bno, reply, replyer, replyDate, updatedate
   	  FROM  tbl_reply
-  	 WHERE  bno=#{bno}
+  	 WHERE  bno = #{bno}
   	 ORDER  BY rno ASC
   </select>
   
