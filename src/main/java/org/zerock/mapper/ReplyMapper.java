@@ -20,4 +20,6 @@ public interface ReplyMapper {
 			@Param("cri") Criteria cri, //MyBatis에 두 개 이상의 데이터를 파라미터로 전달 
 			@Param("bno") Long bno
 			);
+	
+	public int getCountByBno(Long bno);
 }

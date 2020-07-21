@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.ReplyPageDTO;
 import org.zerock.domain.ReplyVO;
 import org.zerock.service.ReplyService;
 
@@ -48,15 +49,25 @@ public class ReplyController {
 					MediaType.APPLICATION_XML_VALUE, //JSON 방식, produces속성은 생략가능
 					MediaType.APPLICATION_JSON_UTF8_VALUE}
 	) //XML 방식
-	public ResponseEntity<List<ReplyVO>> getList( //status상태 코드를 갖음 , @ResponseBody와 유사 , 좀 더 세밀한 제어가 가능
-			@PathVariable("page") int page, //url값을 파라미터로 사용 
-			@PathVariable("bno") Long bno){
-		//ex)http://localhost:9090/ajaxSample/pages/{bno}/{page} => bags와 1234를 파라미터로 사용
-		log.info("getList...........");
+//	public ResponseEntity<List<ReplyVO>> getList( //status상태 코드를 갖음 , @ResponseBody와 유사 , 좀 더 세밀한 제어가 가능
+//			@PathVariable("page") int page, //url값을 파라미터로 사용 
+//			@PathVariable("bno") Long bno){
+//		//ex)http://localhost:9090/ajaxSample/pages/{bno}/{page} => bags와 1234를 파라미터로 사용
+//		log.info("getList...........");
+//		Criteria cri = new Criteria(page, 10);
+//		log.info(cri);
+//		
+//		return new ResponseEntity<>(service.getList(cri, bno), HttpStatus.OK); //status상태 코드, ok는 정상작동
+//	}
+	public ResponseEntity<ReplyPageDTO> getList(
+			@PathVariable("page") int page, 
+			@PathVariable("bno") Long bno
+			) {
 		Criteria cri = new Criteria(page, 10);
-		log.info(cri);
+		log.info("get Reply List bno: " + bno);
+		log.info("cri: " + cri);
 		
-		return new ResponseEntity<>(service.getList(cri, bno), HttpStatus.OK); //status상태 코드, ok는 정상작동
+		return new ResponseEntity<>(service.getListPage(cri, bno), HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/{rno}")

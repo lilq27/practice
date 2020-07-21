@@ -19,15 +19,34 @@
   </delete>
   
   <update id="update">
-  	update tbl_reply set reply=#{reply},updatedate=sysdate where rno=#{rno}
+  	UPDATE  tbl_reply 
+  	   SET  reply = #{reply}
+  	        updatedate = sysdate
+  	 WHERE rno=#{rno}      
   </update>
   
   <select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
+  <![CDATA[
   	SELECT  rno, bno, reply, replyer, replyDate, updatedate
-  	  FROM  tbl_reply
-  	 WHERE  bno = #{bno}
-  	 ORDER  BY rno ASC
+  	  FROM  (
+  	  		SELECT /*+INDEX(tbl_reply idx_reply) */
+  	  		ROWNUM  rn, rno, bno, reply, replyer, replyDate, updatedate
+  	  		  FROM  tbl_reply
+  	  		 WHERE  bno = #{bno}
+  	  		   AND  rno > 0
+  	  		   AND  rownum <= #{cri.pageNum} * #{cri.amount}
+  	  )
+  	 WHERE  rn > (#{cri.pageNum} -1) * #{cri.amount}
+  ]]>
   </select>
   
+  <select id="getCountByBno" resultType="int">
+  <![CDATA[
+  	SELECT  COUNT(rno) 
+  	  FROM  tbl_reply
+  	 WHERE  bno = ${bno}
+  ]]>
+  </select>
+
   
   </mapper>
