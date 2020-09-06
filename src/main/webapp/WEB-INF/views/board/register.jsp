@@ -99,8 +99,27 @@
 				dataType: 'json',
 				success: function(result) {
 					console.log(result);
+					showUploadResult(result)
 				}
 			});
 		});
+		
+		function showUploadResult(uploadResultArr) {
+			if(!uploadResultArr || uploadResultArr.length == 0) {
+				return ;
+			}
+			var uploadUl = $(".uploadResult ul");
+			
+			var str = "";
+			$(uploadResultArr).each(function(i, obj) {
+				if(obj.image) {
+					var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_" + obj.uuid + "_" + obj.fileName);
+				} else {
+					
+				}
+			});
+			
+			uploadUl.append(str);
+		}
 	});
 </script>
